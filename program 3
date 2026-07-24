@@ -1,7 +1,7 @@
 
 package day22;
 
-public class problem2 {
+public class problem3 {
 
 
     static class Node {
@@ -15,32 +15,43 @@ public class problem2 {
 
     public static void main(String[] args) {
 
-        Node common = new Node(8);
-        common.next = new Node(10);
+        Node a = new Node(1);
+        a.next = new Node(2);
+        a.next.next = new Node(4);
 
-        Node a = new Node(3);
-        a.next = new Node(7);
-        a.next.next = common;
+        Node b = new Node(1);
+        b.next = new Node(3);
+        b.next.next = new Node(4);
 
-        Node b = new Node(99);
-        b.next = common;
+        Node dummy = new Node(0);
+        Node temp = dummy;
 
-        Node p1 = a;
-        Node p2 = b;
+        while(a != null && b != null) {
 
-        while(p1 != p2) {
+            if(a.data <= b.data) {
+                temp.next = a;
+                a = a.next;
+            }
+            else {
+                temp.next = b;
+                b = b.next;
+            }
 
-            if(p1 == null)
-                p1 = b;
-            else
-                p1 = p1.next;
-
-            if(p2 == null)
-                p2 = a;
-            else
-                p2 = p2.next;
+            temp = temp.next;
         }
 
-        System.out.println(p1.data);
+        if(a != null)
+            temp.next = a;
+
+        if(b != null)
+            temp.next = b;
+
+
+        temp = dummy.next;
+
+        while(temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
     }
 }
